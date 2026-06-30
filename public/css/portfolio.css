@@ -1,0 +1,164 @@
+/* 포트폴리오 페이지 전용 스타일 */
+
+/* 그라데이션 텍스트 */
+.gradient-text {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Hero 배경 그라데이션 */
+.hero-bg {
+    background:
+        radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.12), transparent 40%),
+        radial-gradient(circle at 80% 0%, rgba(139, 92, 246, 0.10), transparent 40%);
+}
+
+/* 모바일 nav 토글 */
+.mobile-nav {
+    display: none;
+}
+
+.mobile-nav.open {
+    display: flex;
+}
+
+/* 모바일 최적화 (≤ 640px) */
+@media (max-width: 640px) {
+    /* Hero 섹션 패딩 축소 */
+    #home {
+        padding-top: 2.5rem !important;
+        padding-bottom: 2.5rem !important;
+    }
+
+    #home h1 {
+        font-size: 2rem !important;
+        line-height: 1.2 !important;
+    }
+
+    #home p.text-lg,
+    #home p.text-xl {
+        font-size: 1rem !important;
+        line-height: 1.6 !important;
+    }
+
+    /* 아바타 축소 */
+    #home .w-48,
+    #home .sm\:w-56 {
+        width: 9rem !important;
+        height: 9rem !important;
+    }
+
+    #home .text-7xl {
+        font-size: 3.5rem !important;
+    }
+
+    /* 섹션 패딩 통일 */
+    section {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+
+    section h2 {
+        font-size: 1.5rem !important;
+    }
+
+    /* About / Skills / Projects / Contact 카드 안쪽 여유 */
+    section .rounded-xl {
+        padding: 1.25rem !important;
+    }
+
+    /* Hero CTA 버튼 풀폭 */
+    #home .flex.flex-wrap.gap-3 > a {
+        flex: 1 1 100%;
+    }
+
+    /* 프로젝트 카드 이미지 영역 축소 */
+    #projects .h-44 {
+        height: 9rem !important;
+    }
+
+    /* 모바일 nav 패널 */
+    .mobile-nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        padding: 1rem;
+        background: white;
+        border-top: 1px solid #e5e7eb;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        gap: 0.25rem;
+    }
+
+    .mobile-nav a {
+        padding: 0.875rem 1rem;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        color: #4b5563;
+    }
+
+    .mobile-nav a:hover,
+    .mobile-nav a:active {
+        background: #eef2ff;
+        color: #4f46e5;
+    }
+}
+
+/* 태블릿 최적화 (641px - 1024px) */
+@media (min-width: 641px) and (max-width: 1024px) {
+    #home {
+        padding-top: 4rem !important;
+        padding-bottom: 4rem !important;
+    }
+
+    section {
+        padding-top: 4rem !important;
+        padding-bottom: 4rem !important;
+    }
+}
+
+/* 모바일 햄버거 버튼 (640px 이하에서만 표시) */
+.hamburger-btn {
+    display: none;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    color: #4f46e5;
+}
+
+.hamburger-btn:hover,
+.hamburger-btn:active {
+    background: #eef2ff;
+}
+
+@media (max-width: 768px) {
+    .hamburger-btn {
+        display: inline-flex;
+    }
+}
+
+/* 카드 hover 살짝 떠오름 (데스크톱만) */
+@media (hover: hover) and (pointer: fine) {
+    #projects a.group:hover,
+    #skills .rounded-xl:hover,
+    #contact a:hover {
+        transform: translateY(-2px);
+        transition: transform 0.2s ease;
+    }
+}
+
+/* responsive.css의 .bg-white 강제 패딩이 hero/section의 카드에 너무 작게 잡히는 걸 보강 */
+@media (max-width: 640px) {
+    /* Hero의 아바타 컨테이너는 bg-white 영향 안 받게 */
+    #home .bg-gradient-to-br {
+        padding: 0 !important;
+    }
+}

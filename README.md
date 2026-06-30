@@ -1,7 +1,9 @@
-# 📅 프로젝트 작업 캘린더 - TODO 관리 앱
+# 🧑‍💻 포트폴리오 + 캘린더 TODO
 
-프로젝트의 작업을 캘린더 기반으로 효율적으로 관리할 수 있는 웹 애플리케이션입니다.
-날짜별로 할 일을 등록하고, 우선순위로 관리하며, 진행 상황을 추적할 수 있습니다.
+개인 포트폴리오 랜딩 페이지와 캘린더 기반 TODO 관리 앱을 함께 제공하는 웹 프로젝트입니다.
+
+- **포트폴리오(`/` 또는 `/index.html`)**: 프로필 / 소개 / 기술 스택 / 프로젝트 쇼케이스 / 연락처
+- **TODO 앱(`/todo.html`)**: 날짜별로 할 일을 등록하고 우선순위로 관리
 
 ## ✨ 주요 기능
 
@@ -20,11 +22,12 @@ coding-sister-todo/
 ├── docs/
 │   └── personal/              # 프로젝트 문서
 ├── public/                    # 웹 서버에서 제공할 파일들
-│   ├── index.html             # 메인 HTML 파일
+│   ├── index.html             # 포트폴리오 랜딩 페이지 (첫 화면)
+│   ├── todo.html              # TODO 관리 앱
 │   ├── css/
 │   │   └── responsive.css     # 반응형 스타일
 │   └── js/
-│       ├── app.js             # 앱 초기화
+│       ├── app.js             # TODO 앱 초기화
 │       ├── calendar.js        # 캘린더 기능
 │       └── todo.js            # TODO 관리 기능
 ├── src/
@@ -48,7 +51,9 @@ npm install
 npm run dev
 ```
 
-브라우저에서 `http://localhost:8081` 열기
+브라우저에서 다음 주소 열기:
+- 포트폴리오: `http://localhost:8081/`
+- TODO 앱: `http://localhost:8081/todo.html`
 
 ## 💻 기술 스택
 

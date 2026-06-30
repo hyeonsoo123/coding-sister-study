@@ -3,112 +3,309 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>프로젝트 작업 캘린더 - TODO 관리</title>
+    <title>Your Name — portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/portfolio.css">
 </head>
-<body class="bg-gray-50 min-h-screen font-sans">
-    <!-- 헤더 -->
-    <header class="bg-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <h1 class="text-2xl sm:text-3xl font-bold text-indigo-600">📅 프로젝트 작업 캘린더</h1>
+<body class="bg-gray-50 min-h-screen font-sans text-gray-800">
+
+    <!-- 네비게이션 -->
+    <header class="bg-white/80 backdrop-blur shadow-sm sticky top-0 z-50 relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between gap-3">
+            <a href="#home" class="text-xl sm:text-2xl font-bold text-indigo-600 min-h-[44px] inline-flex items-center">
+                <span class="gradient-text">Portfolio</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-gray-600">
+                <a href="#about" class="hover:text-indigo-600 transition min-h-[44px] inline-flex items-center">소개</a>
+                <a href="#skills" class="hover:text-indigo-600 transition min-h-[44px] inline-flex items-center">기술 스택</a>
+                <a href="#projects" class="hover:text-indigo-600 transition min-h-[44px] inline-flex items-center">프로젝트</a>
+                <a href="#contact" class="hover:text-indigo-600 transition min-h-[44px] inline-flex items-center">연락처</a>
+            </nav>
+            <div class="flex items-center gap-2">
+                <a href="todo.html" class="inline-flex items-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition min-h-[44px]">
+                    📅 <span class="hidden sm:inline">TODO 앱</span>
+                </a>
+                <button id="hamburgerBtn" type="button" class="hamburger-btn" aria-label="메뉴 열기">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
         </div>
+        <!-- 모바일 nav 패널 -->
+        <nav id="mobileNav" class="mobile-nav md:hidden">
+            <a href="#about">소개</a>
+            <a href="#skills">기술 스택</a>
+            <a href="#projects">프로젝트</a>
+            <a href="#contact">연락처</a>
+        </nav>
     </header>
 
-    <!-- 메인 컨텐츠 -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-        <!-- 모바일: 탭 네비게이션 -->
-        <div class="lg:hidden mb-6">
-            <div class="flex gap-2 bg-gray-200 rounded-lg p-1">
-                <button id="tabCalendar" class="tabBtn flex-1 py-3 px-4 rounded-lg bg-indigo-600 text-white font-semibold transition min-h-[44px]" data-tab="calendar">
-                    📅 캘린더
-                </button>
-                <button id="tabTodo" class="tabBtn flex-1 py-3 px-4 rounded-lg bg-gray-200 text-gray-700 font-semibold transition min-h-[44px]" data-tab="todo">
-                    ✅ TODO
-                </button>
-            </div>
-        </div>
-
-        <!-- 모바일: 캘린더 탭 -->
-        <div id="mobileCalendarTab" class="lg:hidden mb-6">
-            <div class="bg-white rounded-lg shadow-lg p-4 sm:p-6">
-                <div id="calendar"></div>
-            </div>
-        </div>
-
-        <!-- 모바일: TODO 탭 (숨김) & 데스크톱: 전체 레이아웃 -->
-        <div id="mobileTodoTab" class="hidden lg:block lg:grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- 데스크톱: 캘린더 -->
-            <div class="hidden lg:block">
-                <div class="bg-white rounded-lg shadow-lg p-6 sticky top-24">
-                    <div id="calendarDesktop"></div>
+    <!-- Hero -->
+    <section id="home" class="hero-bg">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-10 items-center">
+                <div class="md:col-span-3 text-center md:text-left">
+                    <p class="text-sm font-semibold text-indigo-600 mb-3 tracking-wider">👋 PORTFOLIO</p>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+                        안녕하세요,<br>
+                        <span class="gradient-text">임 현수</span> 입니다.
+                    </h1>
+                    <p class="text-lg sm:text-xl text-gray-600 mb-8 leading-relaxed">
+                        비전공으로 시작한 2년차 개발자. 잘 짠 코드보다 <strong class="text-gray-800">요구사항에 정확히 맞는 결과물</strong>을 만드는 일에 더 마음이 갑니다.
+                    </p>
+                    <div class="flex flex-wrap gap-3 justify-center md:justify-start">
+                        <a href="#projects" class="px-7 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 hover:-translate-y-0.5 transition-all duration-200 shadow-md hover:shadow-lg min-h-[44px] inline-flex items-center justify-center">
+                            프로젝트 보기
+                        </a>
+                        <a href="#contact" class="px-7 py-3 bg-white text-indigo-600 font-semibold rounded-lg border-2 border-indigo-200 hover:border-indigo-400 hover:-translate-y-0.5 transition-all duration-200 min-h-[44px] inline-flex items-center justify-center">
+                            연락하기
+                        </a>
+                    </div>
                 </div>
-            </div>
-
-            <!-- TODO 섹션 (데스크톱용) -->
-            <div class="lg:col-span-2">
-                <!-- TODO 입력 -->
-                <div class="bg-white rounded-lg shadow-lg p-4 sm:p-6 mb-6">
-                    <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-6">
-                        <span id="selectedDate">오늘의 작업</span>
-                    </h2>
-
-                    <div class="mb-6">
-                        <label class="block text-sm font-semibold text-gray-700 mb-3">작업 제목</label>
-                        <input
-                            type="text"
-                            id="todoInput"
-                            placeholder="작업 제목을 입력하세요..."
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-base min-h-[44px]"
-                        >
-                    </div>
-
-                    <div class="mb-6">
-                        <label class="block text-sm font-semibold text-gray-700 mb-3">상세 설명</label>
-                        <textarea
-                            id="todoDescription"
-                            placeholder="작업에 대한 설명을 입력하세요..."
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-base min-h-[120px] resize-none"
-                        ></textarea>
-                    </div>
-
-                    <div class="mb-6">
-                        <label class="block text-sm font-semibold text-gray-700 mb-3">우선순위</label>
-                        <select id="todoPriority" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]">
-                            <option value="low">🟢 낮음</option>
-                            <option value="medium" selected>🟡 중간</option>
-                            <option value="high">🔴 높음</option>
-                        </select>
-                    </div>
-
-                    <button
-                        id="addTodoBtn"
-                        class="w-full px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition font-semibold min-h-[44px]"
-                    >
-                        ➕ 작업 추가
-                    </button>
-                </div>
-
-                <!-- TODO 필터 -->
-                <div class="bg-white rounded-lg shadow-lg p-4 sm:p-6">
-                    <div class="flex flex-wrap gap-2 mb-6 pb-6 border-b">
-                        <button class="filterBtn px-4 py-3 sm:py-2 rounded-full bg-indigo-600 text-white font-semibold min-h-[44px] text-sm" data-filter="all">전체</button>
-                        <button class="filterBtn px-4 py-3 sm:py-2 rounded-full bg-gray-200 text-gray-700 font-semibold min-h-[44px] text-sm" data-filter="active">진행중</button>
-                        <button class="filterBtn px-4 py-3 sm:py-2 rounded-full bg-gray-200 text-gray-700 font-semibold min-h-[44px] text-sm" data-filter="completed">완료</button>
-                    </div>
-
-                    <!-- TODO 목록 -->
-                    <div id="todoList" class="space-y-4">
-                        <!-- TODO 아이템이 여기에 동적으로 추가됩니다 -->
+                <div class="md:col-span-2 flex justify-center">
+                    <div class="relative">
+                        <div class="absolute -inset-2 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full blur-xl opacity-30"></div>
+                        <div class="relative w-48 h-48 sm:w-56 sm:h-56 rounded-full bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center text-7xl border-4 border-white shadow-xl">
+                            🧑‍💻
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+    </section>
 
-    <!-- 스크립트 -->
-    <script src="js/calendar.js"></script>
-    <script src="js/todo.js"></script>
-    <script src="js/app.js"></script>
+    <!-- About -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <p class="text-sm font-semibold text-indigo-600 mb-2 tracking-wider">ABOUT</p>
+                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">소개</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+                <div class="bg-indigo-50 rounded-xl p-6 text-center">
+                    <div class="text-3xl mb-2">💼</div>
+                    <p class="text-xs font-semibold text-gray-500 mb-1">직무</p>
+                    <p class="font-bold text-gray-900">Backend Developer</p>
+                </div>
+                <div class="bg-indigo-50 rounded-xl p-6 text-center">
+                    <div class="text-3xl mb-2">📍</div>
+                    <p class="text-xs font-semibold text-gray-500 mb-1">위치</p>
+                    <p class="font-bold text-gray-900">대전 거주 · 세종 근무</p>
+                </div>
+                <div class="bg-indigo-50 rounded-xl p-6 text-center">
+                    <div class="text-3xl mb-2">🎯</div>
+                    <p class="text-xs font-semibold text-gray-500 mb-1">관심사</p>
+                    <p class="font-bold text-gray-900">AI</p>
+                </div>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-6 sm:p-8 leading-relaxed text-gray-700">
+                <p class="mb-4">
+                    비전공자로 시작해 어느덧 2년차에 접어든 개발자입니다. 현재는 세종에서 근무하며, <strong class="text-gray-900">랭그래프(LangGraph)</strong>를 활용해 누구나 자신만의 AI 구조를 직접 설계하고 만들 수 있도록 돕는 프로젝트에 참여하고 있습니다.
+                </p>
+                <p class="mb-4">
+                    개발 자체도 재미있지만, 더 즐거운 순간은 따로 있습니다. 알고 있는 전문 지식을 클라이언트가 이해할 수 있는 언어로 풀어 설명하고, 흩어진 요구사항을 들여다보며 어떻게 만들 수 있을지 견적을 내는 시간입니다.
+                </p>
+                <p>
+                    코드의 좋고 나쁨, 개발 실력의 높고 낮음보다 <strong class="text-gray-900">요구사항에 정확히 맞는 결과물을 내놓는 것</strong>이 가장 중요하다고 믿습니다. 그래서 기술보다 먼저, 문제를 정확히 이해하는 일에 시간을 씁니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="py-20 bg-gray-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <p class="text-sm font-semibold text-indigo-600 mb-2 tracking-wider">SKILLS</p>
+                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">기술 스택</h2>
+                <p class="text-gray-600 mt-3">프론트부터 백엔드까지 폭넓게 다루지만, 요즘은 <strong class="text-indigo-600">바이브 코딩</strong>으로 빠르게 만들어내는 일에 가장 진심입니다.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- AI / Agent -->
+                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center text-xl">🤖</div>
+                        <h3 class="font-bold text-lg text-gray-900">AI / Agent</h3>
+                    </div>
+                    <p class="text-sm text-gray-500 mb-4 leading-relaxed">
+                        Agent 구조 개념은 대부분 파악하고 있으며, 새 패턴이 나오면 계속 학습하며 따라잡고 있습니다.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-purple-50 text-purple-700 text-sm font-semibold rounded-full">LangGraph</span>
+                        <span class="px-3 py-1 bg-purple-50 text-purple-700 text-sm font-semibold rounded-full">LangChain</span>
+                        <span class="px-3 py-1 bg-purple-50 text-purple-700 text-sm font-semibold rounded-full">Multi-Agent</span>
+                        <span class="px-3 py-1 bg-purple-50 text-purple-700 text-sm font-semibold rounded-full">RAG</span>
+                        <span class="px-3 py-1 bg-purple-50 text-purple-700 text-sm font-semibold rounded-full">Tool Use</span>
+                        <span class="px-3 py-1 bg-purple-50 text-purple-700 text-sm font-semibold rounded-full">MCP</span>
+                        <span class="px-3 py-1 bg-purple-50 text-purple-700 text-sm font-semibold rounded-full">Vector DB</span>
+                        <span class="px-3 py-1 bg-purple-50 text-purple-700 text-sm font-semibold rounded-full">Prompt Engineering</span>
+                    </div>
+                </div>
+                <!-- Backend -->
+                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-indigo-100 flex items-center justify-center text-xl">⚙️</div>
+                        <h3 class="font-bold text-lg text-gray-900">Backend</h3>
+                    </div>
+                    <p class="text-sm text-gray-500 mb-4 leading-relaxed">
+                        Java · Spring 기반의 백엔드 개발과 빌드 · 데이터 영속성 · 컨테이너 운영까지.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-indigo-50 text-indigo-700 text-sm font-semibold rounded-full">Java</span>
+                        <span class="px-3 py-1 bg-indigo-50 text-indigo-700 text-sm font-semibold rounded-full">Spring</span>
+                        <span class="px-3 py-1 bg-indigo-50 text-indigo-700 text-sm font-semibold rounded-full">Spring Boot</span>
+                        <span class="px-3 py-1 bg-indigo-50 text-indigo-700 text-sm font-semibold rounded-full">Maven</span>
+                        <span class="px-3 py-1 bg-indigo-50 text-indigo-700 text-sm font-semibold rounded-full">Gradle</span>
+                        <span class="px-3 py-1 bg-indigo-50 text-indigo-700 text-sm font-semibold rounded-full">JPA</span>
+                        <span class="px-3 py-1 bg-indigo-50 text-indigo-700 text-sm font-semibold rounded-full">Hibernate</span>
+                        <span class="px-3 py-1 bg-indigo-50 text-indigo-700 text-sm font-semibold rounded-full">MyBatis</span>
+                        <span class="px-3 py-1 bg-indigo-50 text-indigo-700 text-sm font-semibold rounded-full">RDBMS</span>
+                        <span class="px-3 py-1 bg-indigo-50 text-indigo-700 text-sm font-semibold rounded-full">REST API</span>
+                        <span class="px-3 py-1 bg-indigo-50 text-indigo-700 text-sm font-semibold rounded-full">Docker</span>
+                    </div>
+                </div>
+                <!-- Vibe Coding (강조 카드) -->
+                <div class="relative bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl p-6 shadow-md hover:shadow-xl transition text-white overflow-hidden">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center text-xl">✨</div>
+                        <h3 class="font-bold text-lg">Vibe Coding</h3>
+                    </div>
+                    <p class="text-sm text-white/80 mb-4 leading-relaxed">
+                        AI 페어 프로그래밍으로 아이디어에서 동작하는 결과물까지 빠르게.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-white/15 text-white text-sm font-semibold rounded-full">Claude</span>
+                        <span class="px-3 py-1 bg-white/15 text-white text-sm font-semibold rounded-full">Codex</span>
+                        <span class="px-3 py-1 bg-white/15 text-white text-sm font-semibold rounded-full">GPT</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <p class="text-sm font-semibold text-indigo-600 mb-2 tracking-wider">PROJECTS</p>
+                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">프로젝트</h2>
+                <p class="text-gray-600 mt-3">공개 가능한 작업과 참여 중인 업무 프로젝트입니다.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- 1. LangChain AI 구조 설계 (진행중) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col">
+                    <div class="h-44 bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-6xl">
+                        🤖
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="flex items-center gap-2 mb-2 flex-wrap">
+                            <span class="px-2 py-0.5 bg-indigo-100 text-indigo-700 text-xs font-bold rounded">IN PROGRESS</span>
+                            <span class="px-2 py-0.5 bg-gray-100 text-gray-600 text-xs font-bold rounded">PRIVATE</span>
+                        </div>
+                        <h3 class="font-bold text-lg text-gray-900 mb-2">
+                            AI 구조 설계 플랫폼
+                        </h3>
+                        <p class="text-sm text-gray-600 mb-4 flex-1">
+                            LangChain을 활용해 누구나 자신만의 AI 에이전트 구조를 직접 설계·운영할 수 있도록 돕는 플랫폼 프로젝트에 참여 중입니다.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="px-2 py-0.5 bg-gray-100 text-gray-700 text-xs font-semibold rounded">LangChain</span>
+                            <span class="px-2 py-0.5 bg-gray-100 text-gray-700 text-xs font-semibold rounded">LangGraph</span>
+                            <span class="px-2 py-0.5 bg-gray-100 text-gray-700 text-xs font-semibold rounded">Multi-Agent</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. PG 연동 솔루션 (SI, 완료) -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col">
+                    <div class="h-44 bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-6xl">
+                        💳
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="flex items-center gap-2 mb-2 flex-wrap">
+                            <span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 text-xs font-bold rounded">SI</span>
+                            <span class="px-2 py-0.5 bg-gray-100 text-gray-600 text-xs font-bold rounded">PRIVATE</span>
+                        </div>
+                        <h3 class="font-bold text-lg text-gray-900 mb-2">
+                            PG 연동 솔루션
+                        </h3>
+                        <p class="text-sm text-gray-600 mb-4 flex-1">
+                            SI 프로젝트로 참여한 결제 게이트웨이(PG) 연동 솔루션. 안정적인 결제 처리와 트랜잭션 관리를 담당했습니다.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="px-2 py-0.5 bg-gray-100 text-gray-700 text-xs font-semibold rounded">Java</span>
+                            <span class="px-2 py-0.5 bg-gray-100 text-gray-700 text-xs font-semibold rounded">Spring Boot</span>
+                            <span class="px-2 py-0.5 bg-gray-100 text-gray-700 text-xs font-semibold rounded">REST API</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. 스터디 스케줄러 (공개) -->
+                <a href="todo.html" class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition border border-gray-100 flex flex-col">
+                    <div class="h-44 bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-6xl">
+                        📅
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="px-2 py-0.5 bg-green-100 text-green-700 text-xs font-bold rounded">LIVE</span>
+                            <span class="text-xs text-gray-500">2026</span>
+                        </div>
+                        <h3 class="font-bold text-lg text-gray-900 mb-2 group-hover:text-indigo-600 transition">
+                            스터디 스케줄러
+                        </h3>
+                        <p class="text-sm text-gray-600 mb-4 flex-1">
+                            스터디 기간 동안 학습 일정을 정리하고 진행 상황을 추적하기 위해 만든 간단한 캘린더 스케줄러입니다.
+                        </p>
+                        <div class="flex items-center justify-between gap-3 mt-auto">
+                            <div class="flex flex-wrap gap-1.5 min-w-0">
+                                <span class="px-2 py-0.5 bg-gray-100 text-gray-700 text-xs font-semibold rounded">JavaScript</span>
+                            </div>
+                            <span class="flex-shrink-0 inline-flex items-center justify-center px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-lg shadow-sm group-hover:bg-indigo-700 group-hover:-translate-y-0.5 group-hover:shadow-md transition-all duration-200 min-h-[40px]">
+                                앱 열기
+                            </span>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm font-semibold text-indigo-600 mb-2 tracking-wider">CONTACT</p>
+            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">함께 일해요</h2>
+            <p class="text-gray-600 mb-10">
+                새로운 프로젝트나 협업 제안 모두 환영합니다. 편하게 연락 주세요.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <a href="mailto:hyen8221@gmail.com" class="bg-white rounded-xl p-6 hover:shadow-md transition group">
+                    <div class="text-3xl mb-2">📧</div>
+                    <p class="text-xs font-semibold text-gray-500 mb-1">EMAIL</p>
+                    <p class="font-semibold text-gray-900 group-hover:text-indigo-600 transition break-all">hyen8221@gmail.com</p>
+                </a>
+                <a href="https://github.com/hyeonsoo123" target="_blank" rel="noopener" class="bg-white rounded-xl p-6 hover:shadow-md transition group">
+                    <div class="text-3xl mb-2">🐙</div>
+                    <p class="text-xs font-semibold text-gray-500 mb-1">GITHUB</p>
+                    <p class="font-semibold text-gray-900 group-hover:text-indigo-600 transition">@hyeonsoo123</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-100 py-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-gray-500">
+            <p>© 2026 임 현수. Built with HTML, Tailwind CSS, and ☕.</p>
+        </div>
+    </footer>
+
+    <script src="js/portfolio.js"></script>
 </body>
 </html>
