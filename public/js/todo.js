@@ -16,7 +16,7 @@ function addTodo(title, description = '', priority = 'medium') {
         description: description.trim(),
         priority: priority,
         completed: false,
-        date: selectedDate.toISOString().split('T')[0],
+        date: formatDateLocal(selectedDate),
         createdAt: new Date().toLocaleString('ko-KR'),
         completedAt: null
     };
@@ -92,7 +92,7 @@ function renderTodos() {
     todoList.innerHTML = '';
 
     // 선택한 날짜의 TODO만 필터링
-    const selectedDateStr = selectedDate.toISOString().split('T')[0];
+    const selectedDateStr = formatDateLocal(selectedDate);
     const todosForDate = todos.filter(todo => todo.date === selectedDateStr);
 
     // 추가 필터링 (전체/진행중/완료)

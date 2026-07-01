@@ -19,13 +19,13 @@ function renderCalendar() {
         header.className = 'flex justify-between items-center mb-3 gap-2';
         header.innerHTML = `
             <button class="prevMonth px-2 py-2 text-indigo-600 hover:bg-indigo-50 rounded-lg font-semibold flex items-center justify-center flex-shrink-0">
-                ◀
+                ◀️
             </button>
             <h3 class="text-base sm:text-lg font-bold text-gray-800 text-center flex-1">
-                ${year}년 ${month + 1}월
+                📅 ${year}년 ${month + 1}월
             </h3>
             <button class="nextMonth px-2 py-2 text-indigo-600 hover:bg-indigo-50 rounded-lg font-semibold flex items-center justify-center flex-shrink-0">
-                ▶
+                ▶️
             </button>
         `;
 
@@ -125,8 +125,17 @@ function isDateEqual(date1, date2) {
         date1.getFullYear() === date2.getFullYear();
 }
 
+// 로컬 시간 기준 YYYY-MM-DD (toISOString의 UTC 변환으로 인한 하루 밀림 방지)
+function formatDateLocal(date) {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+}
+
 function hasTodosOnDate(date) {
-    return todos.some(todo => isDateEqual(new Date(todo.date), date));
+    const dateStr = formatDateLocal(date);
+    return todos.some(todo => todo.date === dateStr);
 }
 
 function updateSelectedDate() {
