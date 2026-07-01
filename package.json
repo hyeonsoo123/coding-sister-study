@@ -1,7 +1,7 @@
 {
-  "name": "coding-sister-todo",
+  "name": "coding-sister-study",
   "version": "1.0.0",
-  "description": "포트폴리오 및 TODO 관리 앱",
+  "description": "임현수의 학습·포트폴리오 프로젝트 모음 (포트폴리오 · TODO · 영화 사이트 등)",
   "main": "index.js",
   "scripts": {
     "dev": "live-server public/ --port=8081 --entry-file=index.html",
