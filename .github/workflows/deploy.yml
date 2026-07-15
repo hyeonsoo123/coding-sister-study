@@ -24,13 +24,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
 
-      - name: Upload public/ as artifact
+      - name: Install dependencies
+        run: npm ci
+
+      # React(Vite) 전환 이후로는 빌드 결과물(dist/)을 올린다.
+      # ⚠️ Pages는 정적 호스팅이라 /api 서버리스 함수가 없다 →
+      #    결제·주문·AI 추천은 Vercel 배포본에서만 동작한다.
+      - name: Build
+        run: npm run build
+
+      - name: Upload dist/ as artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./public
+          path: ./dist
 
       - name: Deploy to GitHub Pages
         id: deployment

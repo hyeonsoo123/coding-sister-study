@@ -1,0 +1,170 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   전역 스타일 (구 responsive.css)
+   - SPA라 모든 CSS가 한 번에 로드되므로, 페이지별 테마는
+     body에 붙는 클래스(.theme-cinema)로 스코프한다 → cinema.css
+   ============================================================ */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* 기본(라이트) 배경 — 영화 페이지는 .theme-cinema가 덮어씀 */
+body {
+    background: linear-gradient(to bottom right, #eff6ff, #e0e7ff);
+    min-height: 100vh;
+}
+
+/* 모바일 최적화 (≤ 640px) */
+@media (max-width: 640px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    main {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        padding-top: 1.5rem !important;
+        padding-bottom: 2rem !important;
+    }
+
+    header {
+        padding: 1rem !important;
+    }
+
+    /* 모바일 줌 방지 */
+    button,
+    input,
+    select,
+    textarea {
+        font-size: 16px;
+    }
+
+    input[type='text'],
+    input[type='password'],
+    textarea,
+    select {
+        min-height: 44px;
+        padding: 0.625rem 0.75rem !important;
+        font-size: 14px !important;
+    }
+
+    h1 {
+        font-size: 1.5rem !important;
+    }
+
+    h2 {
+        font-size: 1.125rem !important;
+        line-height: 1.4 !important;
+    }
+
+    h3 {
+        font-size: 1.125rem !important;
+    }
+}
+
+/* 태블릿 (641px ~ 1024px) */
+@media (min-width: 641px) and (max-width: 1024px) {
+    main {
+        padding-left: 1.5rem !important;
+        padding-right: 1.5rem !important;
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+    }
+}
+
+/* 데스크톱 (≥ 1025px) */
+@media (min-width: 1024px) {
+    main {
+        padding-left: 2rem !important;
+        padding-right: 2rem !important;
+        padding-top: 2rem !important;
+    }
+}
+
+/* 랜드스케이프 */
+@media (max-height: 600px) and (orientation: landscape) {
+    header {
+        padding: 0.75rem 1rem !important;
+    }
+
+    main {
+        padding-top: 0.75rem !important;
+        padding-bottom: 0.75rem !important;
+    }
+}
+
+/* 터치 디바이스 */
+@media (hover: none) and (pointer: coarse) {
+    button:active,
+    a:active {
+        opacity: 0.8;
+        transform: scale(0.98);
+    }
+}
+
+/* 접근성 */
+:focus-visible {
+    outline: 2px solid #4f46e5;
+    outline-offset: 2px;
+}
+
+::selection {
+    background-color: #4f46e5;
+    color: white;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+hr {
+    border-color: #e2e8f0;
+}
+
+/* "동작 줄이기"를 켠 사용자: 멀미 유발 요소 최소화 */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        scroll-behavior: auto !important;
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
+    .fade-img {
+        opacity: 1 !important;
+    }
+}

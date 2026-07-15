@@ -4,9 +4,10 @@
   "description": "임현수의 학습·포트폴리오 프로젝트 모음 (포트폴리오 · TODO · 영화 사이트 등)",
   "main": "index.js",
   "scripts": {
-    "dev": "live-server public/ --port=8081 --entry-file=index.html",
+    "dev": "vite",
     "api": "node --env-file=.env scripts/dev-api.js",
-    "build:css": "tailwindcss -i ./src/css/input.css -o ./public/css/output.css --watch"
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "keywords": [
     "portfolio",
@@ -16,10 +17,16 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "live-server": "^1.2.2",
-    "tailwindcss": "^3.4.0"
+    "@vitejs/plugin-react": "^6.0.3",
+    "autoprefixer": "^10.5.3",
+    "postcss": "^8.5.19",
+    "tailwindcss": "^3.4.0",
+    "vite": "^8.1.4"
   },
   "dependencies": {
-    "mongoose": "^9.7.4"
+    "mongoose": "^9.7.4",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-router-dom": "^7.18.1"
   }
 }

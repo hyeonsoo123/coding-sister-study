@@ -1,0 +1,244 @@
+/* ============================================================
+   포트폴리오(/about) 전용 — 구 css/themes.css
+   ------------------------------------------------------------
+   SPA는 CSS가 전역이라, 구 themes.css의 body/유틸 덮어쓰기를
+   전부 `.about-page` 래퍼 아래로 스코프했다.
+   → About.jsx 루트 div 안에서만 적용됨 (영화·TODO 등 다른 라우트는 무영향)
+   테마 클래스(theme-default / theme-mario)도 body가 아니라 같은 래퍼에 붙는다.
+   ※ 구 `body.theme-* #themeBody` 규칙은 #themeBody가 body 자신이라
+     애초에 매치될 수 없는 죽은 선택자였으므로 옮기지 않았다.
+   ============================================================ */
+
+/* 기본 테마 (파란색) */
+.about-page.theme-default {
+    background: linear-gradient(to bottom right, #f0f9ff, #e0e7ff);
+}
+
+/* ============ 테트리스 테마 (네온 아케이드) ============ */
+/* 테트로미노 팔레트
+   I=#00f0f0  O=#f0f000  T=#a000f0  J=#2030f0  L=#f0a000  S=#00f000  Z=#f00000 */
+
+/* 배경 - 어두운 게임보드 + 은은한 격자 */
+.about-page.theme-mario {
+    background:
+        linear-gradient(rgba(0, 240, 240, 0.05) 1px, transparent 1px) 0 0 / 30px 30px,
+        linear-gradient(90deg, rgba(0, 240, 240, 0.05) 1px, transparent 1px) 0 0 / 30px 30px,
+        radial-gradient(ellipse at 50% 0%, #1b1b3a 0%, #0a0a1f 70%);
+    background-attachment: fixed;
+    font-family: 'Courier New', monospace;
+    color: #c7d2fe;
+}
+
+/* 테트리스 테마: 게임을 맨 위로, 기본 프로필은 그 아래로 (기본 테마엔 영향 없음) */
+.about-page.theme-mario main {
+    display: flex;
+    flex-direction: column;
+}
+.about-page.theme-mario .tetris-section {
+    order: -1;
+}
+
+/* 헤더 - 어두운 패널 + 시안 네온 라인 */
+.about-page.theme-mario header {
+    background: #11112a !important;
+    border-bottom: 3px solid #00f0f0;
+    box-shadow: 0 4px 24px rgba(0, 240, 240, 0.25);
+}
+
+.about-page.theme-mario header h1 {
+    color: #00f0f0 !important;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0, 240, 240, 0.8);
+}
+
+/* 카드/섹션 - 어두운 블록 패널 + 네온 테두리 */
+.about-page.theme-mario section,
+.about-page.theme-mario .bg-white {
+    background-color: #15152e !important;
+    border: 3px solid #00f0f0;
+    border-radius: 0 !important;
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.6),
+        0 0 18px rgba(0, 240, 240, 0.25),
+        6px 6px 0 rgba(0, 0, 0, 0.6);
+    color: #c7d2fe !important;
+}
+
+.about-page.theme-mario .shadow-lg,
+.about-page.theme-mario .shadow-xl {
+    box-shadow:
+        0 0 18px rgba(0, 240, 240, 0.25),
+        6px 6px 0 rgba(0, 0, 0, 0.6) !important;
+}
+
+.about-page.theme-mario .rounded-lg,
+.about-page.theme-mario .rounded-full,
+.about-page.theme-mario .rounded {
+    border-radius: 0 !important;
+}
+
+/* 연락처 섹션 (원래 인디고 배경) 도 패널로 통일 */
+.about-page.theme-mario .bg-indigo-600 {
+    background-color: #15152e !important;
+}
+
+/* 프로젝트 카드마다 다른 테트로미노 네온 색 */
+.about-page.theme-mario .grid > div:nth-child(6n+1) { border-color: #00f0f0; box-shadow: 0 0 18px rgba(0,240,240,.3), 6px 6px 0 rgba(0,0,0,.6); }
+.about-page.theme-mario .grid > div:nth-child(6n+2) { border-color: #f0f000; box-shadow: 0 0 18px rgba(240,240,0,.3), 6px 6px 0 rgba(0,0,0,.6); }
+.about-page.theme-mario .grid > div:nth-child(6n+3) { border-color: #a000f0; box-shadow: 0 0 18px rgba(160,0,240,.35), 6px 6px 0 rgba(0,0,0,.6); }
+.about-page.theme-mario .grid > div:nth-child(6n+4) { border-color: #00f000; box-shadow: 0 0 18px rgba(0,240,0,.3), 6px 6px 0 rgba(0,0,0,.6); }
+.about-page.theme-mario .grid > div:nth-child(6n+5) { border-color: #f0a000; box-shadow: 0 0 18px rgba(240,160,0,.3), 6px 6px 0 rgba(0,0,0,.6); }
+.about-page.theme-mario .grid > div:nth-child(6n+6) { border-color: #f00000; box-shadow: 0 0 18px rgba(240,0,0,.3), 6px 6px 0 rgba(0,0,0,.6); }
+
+/* 등장 애니메이션 - 블록이 위에서 떨어짐 */
+@keyframes tetris-drop {
+    0% { transform: translateY(-24px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+.about-page.theme-mario section,
+.about-page.theme-mario .grid > div {
+    animation: tetris-drop 0.35s ease-out;
+}
+
+/* 제목 - 시안 네온 글로우 */
+.about-page.theme-mario h2,
+.about-page.theme-mario h3,
+.about-page.theme-mario h4 {
+    color: #00f0f0 !important;
+    font-weight: 900 !important;
+    letter-spacing: 1px;
+    text-shadow: 0 0 8px rgba(0, 240, 240, 0.6);
+}
+
+/* 본문 텍스트 - 밝은 라벤더 */
+.about-page.theme-mario p,
+.about-page.theme-mario span,
+.about-page.theme-mario label,
+.about-page.theme-mario li,
+.about-page.theme-mario .text-gray-600,
+.about-page.theme-mario .text-gray-700,
+.about-page.theme-mario .text-gray-800,
+.about-page.theme-mario .text-gray-500 {
+    color: #c7d2fe !important;
+}
+
+/* 버튼 - 블록형 3D + 네온 글로우 (각자 색 유지) */
+.about-page.theme-mario button,
+.about-page.theme-mario a.inline-block,
+.about-page.theme-mario a.inline-flex,
+.about-page.theme-mario header a[href*="todo"] {
+    border: 2px solid rgba(255, 255, 255, 0.85) !important;
+    border-radius: 0 !important;
+    font-weight: bold !important;
+    letter-spacing: 1px;
+    box-shadow:
+        inset 2px 2px 0 rgba(255, 255, 255, 0.25),
+        inset -2px -2px 0 rgba(0, 0, 0, 0.35),
+        4px 4px 0 rgba(0, 0, 0, 0.6) !important;
+    transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+.about-page.theme-mario button:hover,
+.about-page.theme-mario a.inline-block:hover,
+.about-page.theme-mario a.inline-flex:hover {
+    transform: translate(2px, 2px) !important;
+    box-shadow:
+        inset 2px 2px 0 rgba(255, 255, 255, 0.25),
+        inset -2px -2px 0 rgba(0, 0, 0, 0.35),
+        2px 2px 0 rgba(0, 0, 0, 0.6) !important;
+}
+
+.about-page.theme-mario button:active,
+.about-page.theme-mario a.inline-block:active,
+.about-page.theme-mario a.inline-flex:active {
+    transform: translate(4px, 4px) !important;
+    box-shadow:
+        inset 2px 2px 0 rgba(255, 255, 255, 0.25),
+        inset -2px -2px 0 rgba(0, 0, 0, 0.35),
+        0 0 0 rgba(0, 0, 0, 0.6) !important;
+}
+
+/* 입력 필드 - 어두운 패널 + 시안 테두리
+   (구 themes.css가 TODO 페이지와 공유하던 규칙. 여기선 입력창이 없어
+    실제로 걸리진 않지만, 테마 정의를 원본 그대로 보존해 둔다) */
+.about-page.theme-mario input,
+.about-page.theme-mario textarea,
+.about-page.theme-mario select {
+    background-color: #0d0d22 !important;
+    border: 2px solid #00f0f0 !important;
+    border-radius: 0 !important;
+    font-family: 'Courier New', monospace !important;
+    color: #e0e7ff !important;
+}
+
+.about-page.theme-mario input::placeholder,
+.about-page.theme-mario textarea::placeholder {
+    color: #6b7280 !important;
+}
+
+.about-page.theme-mario input:focus,
+.about-page.theme-mario textarea:focus,
+.about-page.theme-mario select:focus {
+    outline: none !important;
+    box-shadow: 0 0 10px rgba(0, 240, 240, 0.6) !important;
+}
+
+/* 배지 - 보라(T) 블록 */
+.about-page.theme-mario .bg-indigo-100,
+.about-page.theme-mario .bg-yellow-100,
+.about-page.theme-mario .bg-blue-100,
+.about-page.theme-mario .bg-red-100,
+.about-page.theme-mario .bg-green-100,
+.about-page.theme-mario .bg-purple-100 {
+    background-color: #2a1a4a !important;
+    color: #d8b4fe !important;
+    border: 2px solid #a000f0 !important;
+    font-weight: bold !important;
+    border-radius: 0 !important;
+}
+
+/* 링크 - 시안 */
+.about-page.theme-mario main a:not(.inline-block):not([class*="bg-"]) {
+    color: #00f0f0 !important;
+    font-weight: bold !important;
+}
+
+.about-page.theme-mario main a:not(.inline-block):not([class*="bg-"]):hover {
+    color: #f0f000 !important;
+}
+
+/* 모달 - 어두운 패널 */
+.about-page.theme-mario .theme-modal {
+    background-color: rgba(0, 0, 0, 0.85) !important;
+}
+
+.about-page.theme-mario .theme-modal > div {
+    background-color: #15152e !important;
+    border: 3px solid #00f0f0 !important;
+    border-radius: 0 !important;
+    box-shadow: 0 0 24px rgba(0, 240, 240, 0.4) !important;
+}
+
+.about-page.theme-mario .themeOption {
+    border: 2px solid #3a3a6a !important;
+    border-radius: 0 !important;
+    background-color: #1d1d3e !important;
+}
+
+.about-page.theme-mario .themeOption:hover {
+    border-color: #00f0f0 !important;
+    box-shadow: 0 0 12px rgba(0, 240, 240, 0.4) !important;
+}
+
+/* 아바타 원 - 보라 블록 */
+.about-page.theme-mario .bg-indigo-600.rounded-full {
+    background-color: #a000f0 !important;
+    box-shadow: 0 0 20px rgba(160, 0, 240, 0.6);
+}
+
+/* 구분선 */
+.about-page.theme-mario hr,
+.about-page.theme-mario .border-b {
+    border-color: #00f0f0 !important;
+}

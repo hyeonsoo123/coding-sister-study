@@ -1,4 +1,4 @@
-﻿node_modules/
+node_modules/
 npm-debug.log
 .vscode/
 .idea/
@@ -6,3 +6,10 @@ npm-debug.log
 .DS_Store
 Thumbs.db
 .env
+
+# 빌드 산출물 (Vite)
+dist/
+*.tsbuildinfo
+
+# Vercel
+.vercel

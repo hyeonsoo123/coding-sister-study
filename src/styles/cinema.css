@@ -1,0 +1,319 @@
+/* ============================================================
+   영화(OTT) 페이지 전용 — 다크 시네마틱 테마 + 커스텀 위젯
+   ------------------------------------------------------------
+   SPA는 CSS가 전역이라, 구 movie.css의 body/유틸 덮어쓰기를
+   전부 `body.theme-cinema` 아래로 스코프했다.
+   → useBodyTheme('cinema') 를 쓴 페이지에만 적용됨
+     (TODO·포트폴리오 같은 라이트 페이지는 영향 없음)
+   ============================================================ */
+
+/* ---------- 가로 슬라이드 ---------- */
+.row-scroll {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    cursor: grab;
+}
+.row-scroll::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+.row-scroll.dragging {
+    cursor: grabbing;
+    user-select: none;
+}
+.row-scroll.dragging a {
+    pointer-events: none; /* 드래그 도중 링크 클릭 차단 */
+}
+.row-scroll img,
+.row-scroll a {
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+/* 가로 슬라이드 좌우 화살표 (데스크톱 hover 시 노출) */
+.row-arrow {
+    position: absolute;
+    top: 0;
+    bottom: 0.5rem;
+    z-index: 10;
+    width: 2.5rem;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.row-arrow.left {
+    left: 0;
+    border-radius: 0.5rem 0 0 0.5rem;
+}
+.row-arrow.right {
+    right: 0;
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+@media (min-width: 768px) {
+    .row-arrow {
+        display: flex;
+    }
+    .group\/row:hover .row-arrow {
+        opacity: 1;
+    }
+}
+
+/* ---------- 포스터 카드 ---------- */
+.movie-card {
+    width: 9rem;
+    padding: 0 !important;
+}
+@media (min-width: 640px) {
+    .movie-card {
+        width: 11rem;
+    }
+}
+.movie-grid .movie-card {
+    width: 100%;
+}
+
+.card-img {
+    transition: transform 0.4s ease;
+}
+.movie-card:hover .card-img {
+    transform: scale(1.06);
+}
+
+.card-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1.6rem 0.6rem 0.55rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.35) 55%, transparent);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+}
+.movie-card:hover .card-overlay {
+    opacity: 1;
+}
+.card-title {
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1.15;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.card-sub {
+    color: #e5e7eb;
+    font-size: 0.7rem;
+    margin-top: 0.15rem;
+}
+
+/* 찜 하트 (포스터 우상단) */
+.fav-btn {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: transform 0.15s;
+}
+.fav-btn:hover {
+    transform: scale(1.15);
+}
+.movie-card .fav-btn {
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.15s ease;
+}
+.movie-card:hover .fav-btn {
+    opacity: 1;
+}
+
+/* TV 라벨 배지 (포스터 좌상단) */
+.type-badge {
+    position: absolute;
+    top: 0.375rem;
+    left: 0.375rem;
+    padding: 0.0625rem 0.4rem;
+    border-radius: 0.375rem;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    color: #fff;
+    background: rgba(79, 70, 229, 0.9);
+}
+
+/* 터치 기기(hover 없음): 오버레이·하트 항상 노출 */
+@media (hover: none) {
+    .card-overlay {
+        opacity: 1;
+    }
+    .movie-card .fav-btn {
+        opacity: 1;
+    }
+}
+
+/* ---------- 히어로 ---------- */
+@keyframes heroKenburns {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.12);
+    }
+}
+.hero-img {
+    animation: heroKenburns 22s ease-in-out infinite alternate;
+    will-change: transform;
+}
+.hero-slide {
+    cursor: grab;
+}
+.hero-slide:active {
+    cursor: grabbing;
+}
+
+/* 이미지 페이드인 */
+.fade-img {
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+.fade-img.loaded {
+    opacity: 1;
+}
+
+/* 본문 접힘 (리뷰/약력) */
+.clamped-5 {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.clamped-6 {
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.clamped-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .movie-card:hover {
+        transform: none !important;
+    }
+}
+
+/* ============================================================
+   다크 시네마틱 테마 (배경 #0f1015 · 표면 #1a1b22 · 강조 인디고)
+   Tailwind 유틸 클래스를 body.theme-cinema 아래에서만 덮어쓴다.
+   ============================================================ */
+body.theme-cinema {
+    background-color: #0f1015 !important;
+    background-image: none !important;
+    color: #e5e7eb;
+    overflow-x: clip; /* 가로 오버플로우 방지 (sticky 안전) */
+}
+
+body.theme-cinema header {
+    background-color: #16171d !important;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+}
+
+/* 표면 */
+body.theme-cinema .bg-white {
+    background-color: #1a1b22 !important;
+}
+body.theme-cinema .bg-white\/80 {
+    background-color: rgba(22, 23, 29, 0.85) !important;
+}
+body.theme-cinema .bg-white\/70 {
+    background-color: rgba(22, 23, 29, 0.8) !important;
+}
+body.theme-cinema .bg-gray-50 {
+    background-color: #16171d !important;
+}
+body.theme-cinema .bg-gray-100 {
+    background-color: #26272f !important;
+}
+body.theme-cinema .bg-gray-200 {
+    background-color: #26272f !important;
+}
+
+/* 텍스트 */
+body.theme-cinema .text-gray-900,
+body.theme-cinema .text-gray-800 {
+    color: #f3f4f6 !important;
+}
+body.theme-cinema .text-gray-700 {
+    color: #d1d5db !important;
+}
+body.theme-cinema .text-gray-600 {
+    color: #9ca3af !important;
+}
+body.theme-cinema .text-gray-500 {
+    color: #8b8f98 !important;
+}
+
+/* 보더 */
+body.theme-cinema .border-gray-300 {
+    border-color: #33343d !important;
+}
+body.theme-cinema .border-indigo-100 {
+    border-color: #26272f !important;
+}
+
+/* 인디고 라이트 계열 → 다크 톤 */
+body.theme-cinema .bg-indigo-100 {
+    background-color: rgba(129, 140, 248, 0.15) !important;
+}
+body.theme-cinema .bg-indigo-50 {
+    background-color: rgba(129, 140, 248, 0.12) !important;
+}
+body.theme-cinema .text-indigo-600 {
+    color: #a5b4fc !important;
+}
+body.theme-cinema .text-indigo-700 {
+    color: #a5b4fc !important;
+}
+
+/* 입력창 */
+body.theme-cinema input,
+body.theme-cinema select {
+    background-color: #1a1b22 !important;
+    color: #f3f4f6 !important;
+    border-color: #33343d !important;
+}
+body.theme-cinema input::placeholder {
+    color: #8b8f98 !important;
+}
+body.theme-cinema .hero-search {
+    background-color: rgba(26, 27, 34, 0.92) !important;
+}
+
+/* 스크롤바 */
+body.theme-cinema ::-webkit-scrollbar-track {
+    background: #16171d;
+}
+body.theme-cinema ::-webkit-scrollbar-thumb {
+    background: #33343d;
+}
+body.theme-cinema ::-webkit-scrollbar-thumb:hover {
+    background: #4b4c57;
+}
