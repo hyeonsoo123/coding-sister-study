@@ -170,6 +170,7 @@
                         <div class="flex flex-wrap gap-2 mt-3">
                             ${genres.map((g) => `<span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold">${UI.escapeHtml(g)}</span>`).join('')}
                         </div>
+                        <span id="rentArea" class="inline-block mt-5 mr-2 align-bottom"></span>
                         <button id="favToggle" type="button"
                             class="mt-5 inline-flex items-center gap-2 px-5 py-3 rounded-lg font-bold min-h-[44px] transition
                                    ${isFav ? 'bg-red-500 text-white hover:bg-red-600' : 'bg-white text-gray-800 border-2 border-gray-300 hover:border-red-400'}">
@@ -251,6 +252,8 @@
                 (added ? 'bg-red-500 text-white hover:bg-red-600' : 'bg-white text-gray-800 border-2 border-gray-300 hover:border-red-400');
             UI.toast(added ? T('toast_added') : T('toast_removed'));
         });
+
+        Purchases.mountButton(movie, document.getElementById('rentArea'));
 
         document.title = `${movie.title} · Coding Sister`;
         Recent.add(movie, 'movie');

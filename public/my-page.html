@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🙋 마이페이지 · Coding Sister</title>
+    <meta name="description" content="내 대여 목록과 할 일을 한 곳에서 관리합니다.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🙋</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen font-sans">
+    <header class="bg-white shadow-md sticky top-0 z-40">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-3">
+            <a href="index.html" class="text-lg sm:text-xl font-bold text-indigo-600">🎬<span class="hidden sm:inline"> Coding Sister 영화</span></a>
+            <span class="text-sm text-gray-500">👤 <b id="guestLabel" class="text-gray-700"></b></span>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-6">
+        <h1 class="text-2xl font-bold text-gray-800 mb-4">🙋 마이페이지</h1>
+
+        <!-- 탭 -->
+        <nav class="flex gap-2 mb-5">
+            <button data-tab="rentals" class="mp-tab px-4 py-2 rounded-lg font-semibold text-sm min-h-[44px] transition bg-indigo-600 text-white">🎟 내 대여</button>
+            <button data-tab="todo" class="mp-tab px-4 py-2 rounded-lg font-semibold text-sm min-h-[44px] transition bg-indigo-100 text-indigo-600">✅ 할 일</button>
+        </nav>
+
+        <!-- 내 대여 -->
+        <section id="rentalsTab">
+            <div id="rentalList" class="text-center py-16 text-gray-400 animate-pulse">대여 목록을 불러오는 중...</div>
+        </section>
+
+        <!-- 할 일 (기존 TODO 앱을 그대로 품는다 — 같은 도메인이라 localStorage 데이터 공유) -->
+        <section id="todoTab" class="hidden">
+            <div class="bg-white rounded-xl shadow overflow-hidden">
+                <iframe src="todo.html" title="할 일 관리" class="w-full border-0" style="height: 78vh;"></iframe>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/movie/i18n.js"></script>
+    <script src="js/movie/config.js"></script>
+    <script src="js/movie/ui.js"></script>
+    <script src="js/movie/purchase.js"></script>
+    <script>
+        (() => {
+            document.getElementById('guestLabel').textContent = Purchases.userId();
+
+            // 탭 전환
+            document.querySelectorAll('.mp-tab').forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.mp-tab').forEach((b) => {
+                        const active = b === btn;
+                        b.classList.toggle('bg-indigo-600', active);
+                        b.classList.toggle('text-white', active);
+                        b.classList.toggle('bg-indigo-100', !active);
+                        b.classList.toggle('text-indigo-600', !active);
+                    });
+                    document.getElementById('rentalsTab').classList.toggle('hidden', btn.dataset.tab !== 'rentals');
+                    document.getElementById('todoTab').classList.toggle('hidden', btn.dataset.tab !== 'todo');
+                });
+            });
+
+            // 내 대여 목록
+            (async () => {
+                const box = document.getElementById('rentalList');
+                try {
+                    const items = await Purchases.myList();
+                    if (!items.length) {
+                        box.className = 'text-center py-16';
+                        box.innerHTML = `
+                            <div class="text-5xl mb-3">🎟</div>
+                            <p class="text-gray-500">아직 대여한 영화가 없어요.</p>
+                            <a href="index.html" class="inline-block mt-4 px-5 py-2.5 bg-indigo-600 text-white rounded-lg font-bold hover:bg-indigo-700 transition min-h-[44px]">영화 둘러보기</a>`;
+                        return;
+                    }
+                    box.className = 'grid grid-cols-1 sm:grid-cols-2 gap-4';
+                    box.innerHTML = items
+                        .map((p) => `
+                        <div class="bg-white rounded-xl shadow p-4 flex gap-4">
+                            <img src="${p.posterPath ? UI.img(p.posterPath, 'w185') : UI.POSTER_FALLBACK}" alt=""
+                                 class="w-20 rounded-lg shadow shrink-0 bg-gray-200 cursor-pointer"
+                                 onclick="location.href='movie-detail.html?id=${Number(p.movieId)}'">
+                            <div class="min-w-0 flex-1">
+                                <p class="font-bold text-gray-900 leading-snug">${UI.escapeHtml(p.title || '(제목 없음)')}</p>
+                                <p class="text-xs text-gray-400 mt-1">${new Date(p.createdAt).toLocaleDateString('ko-KR')} 대여 · ₩${(p.price || 0).toLocaleString()}</p>
+                                <div class="mt-3 flex gap-2">
+                                    <button class="watch-btn px-3 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg text-sm font-bold min-h-[40px] transition"
+                                            data-movie='${JSON.stringify({ id: p.movieId, title: p.title, poster_path: p.posterPath }).replace(/'/g, '&#39;')}'>▶️ 시청하기</button>
+                                    <a href="movie-detail.html?id=${Number(p.movieId)}"
+                                       class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-lg text-sm font-semibold min-h-[40px] inline-flex items-center transition">상세</a>
+                                </div>
+                            </div>
+                        </div>`)
+                        .join('');
+                    box.querySelectorAll('.watch-btn').forEach((btn) => {
+                        btn.addEventListener('click', () => Purchases.openPlayer(JSON.parse(btn.dataset.movie)));
+                    });
+                } catch {
+                    box.className = 'text-center py-16';
+                    box.innerHTML = '<p class="text-gray-500">대여 목록을 불러오지 못했어요. API 서버가 켜져 있는지 확인해주세요.</p>';
+                }
+            })();
+        })();
+    </script>
+</body>
+</html>
